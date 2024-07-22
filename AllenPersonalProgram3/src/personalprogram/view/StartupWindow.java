@@ -13,15 +13,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import personalprogram.model.Game;
-import personalprogram.model.Store;
-import personalprogram.model.Transaction;
+
 
 public class StartupWindow implements EventHandler<ActionEvent> {
 	
 	private Stage stage;
-	private Transaction t;
-	private Store store;
+
 	private Button loginBtn = new Button("Login");
 	private Button signUpBtn = new Button("Sign Up");
 	private ListView<String> storeCB = new ListView<String>();
@@ -62,16 +59,16 @@ public class StartupWindow implements EventHandler<ActionEvent> {
 		// TODO Auto-generated method stub
 		if(loginBtn == event.getSource())
 		{
-			LoginWindow addPurchase = new LoginWindow();
-			addPurchase.show();
+			LoginWindow login = new LoginWindow();
+			login.show();
 		
 		}
 		else if(signUpBtn == event.getSource())
 		{
 			
 			//store.displayCart();
-			CheckoutWindow cartPurchase = new CheckoutWindow();
-			cartPurchase.show(store);
+			SignupWindow signup = new SignupWindow();
+			signup.show();
 			
 		}
 		else

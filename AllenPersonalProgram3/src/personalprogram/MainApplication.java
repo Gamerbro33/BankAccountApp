@@ -3,7 +3,6 @@ package personalprogram;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import personalprogram.model.Store;
 import personalprogram.view.StartupWindow;
 
 public class MainApplication extends Application {

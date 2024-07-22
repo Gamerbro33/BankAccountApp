@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 
 import personalprogram.model.SqliteTester;
 
-public class LoginWindow  implements EventHandler<ActionEvent>{
+public class SignupWindow  implements EventHandler<ActionEvent>{
 	private Stage stage;
 	private SqliteTester sql;
 	private Text nameTxt = new Text("");
@@ -35,7 +35,7 @@ public class LoginWindow  implements EventHandler<ActionEvent>{
 		
 	}
 
-	public LoginWindow()
+	public SignupWindow()
 	{
 		stage = new Stage();
 		GridPane pane = new GridPane();
