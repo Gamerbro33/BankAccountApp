@@ -12,9 +12,7 @@ import java.sql.*;
 import java.util.Scanner;
 import java.util.UUID; 
 
-public class SqliteTester {
-
-	private static UUID id;
+public class SqliteUsersBank {
 	   /**
      * Connect to a sample database
      */
@@ -68,25 +66,21 @@ public class SqliteTester {
     }
     
     public static void addingData(String username, String password, String email, int ssn) {
-    	 id = UUID.randomUUID();
+
     	 String newPassword = messageDigest(password);
     	 String url = "jdbc:sqlite:Desktop/users.db";
-    	 String sql = "INSERT INTO javaUniqueUser(UUID, username,"
-    	 		+ " password,"
-    	 		+ " email,"
-    	 		+ " ssn) VALUES(?,?,?,?,?);";
+    	 String sql = "";
     	 try (var conn = DriverManager.getConnection(url);
                  var pstmt = conn.prepareStatement(sql)) {
     		 
-    		 pstmt.setString(1,id.toString());
-    		 pstmt.setString(2,username);
-    		 pstmt.setString(3,newPassword);
-    		 pstmt.setString(4,email);
-    		 pstmt.setInt(5,ssn);
+    		
     		 pstmt.executeUpdate();
     	 }catch (SQLException e) {
              System.err.println(e.getMessage());
          }
+    }
+    public static void updatingStringData(String data) {
+    	
     }
     public static boolean searchdatabase(String username, String password) {
     	 String newPassword = messageDigest(password);
@@ -117,32 +111,5 @@ public class SqliteTester {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-    	
-    	
-    	Scanner line = new Scanner(System.in);
-    	
-    	System.out.println("1:login\n2:Signup");
-    	int input = line.nextInt();
-    	line.nextLine();
-    	if(input == 1) {
-    		System.out.println("Please enter a username");
-        	String username = line.nextLine();
-        	System.out.println("Please enter a Password");
-        	String password = line.nextLine();
-        	searchdatabase(username, password);
-    	} else if(input == 2) {
-    		System.out.println("Please enter a username");
-	    	String username = line.nextLine();
-	    	System.out.println("Please enter a Password");
-	    	String password = line.nextLine();
-	    	System.out.println("Please enter a email");
-	    	String email = line.nextLine();
-	    	System.out.println("Please enter a ssn");
-	    	int ssn = line.nextInt();
-	        connect();
-	        addingData(username, password, email, ssn);
-    	}
-    	
-        System.out.println("Test done");
     }
 }
