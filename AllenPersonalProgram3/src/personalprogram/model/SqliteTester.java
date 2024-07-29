@@ -12,9 +12,13 @@ import java.sql.*;
 import java.util.Scanner;
 import java.util.UUID; 
 
+
 public class SqliteTester {
 
+	private static String urlDirectory = "Place file path here";
+	private static SqliteUsersBank userBank;
 	private static UUID id;
+	public static User user;
 	   /**
      * Connect to a sample database
      */
@@ -23,7 +27,6 @@ public class SqliteTester {
      */
     public static void connect() {
             // db parameters
-            String url = "jdbc:sqlite:Desktop/users.db";
             // create a connection to the database
             var sql = "CREATE TABLE IF NOT EXISTS javaUniqueUser ( " 
             +"UUID TEXT NOT NULL,"
@@ -32,7 +35,7 @@ public class SqliteTester {
             +"email TEXT NOT NULL,"
             +"ssn INTEGER NOT NULL"
             +");";
-            try (var conn = DriverManager.getConnection(url);
+            try (var conn = DriverManager.getConnection(urlDirectory);
                     var stmt = conn.createStatement()) {
                    // create a new table
                    stmt.execute(sql);
@@ -70,12 +73,11 @@ public class SqliteTester {
     public static void addingData(String username, String password, String email, int ssn) {
     	 id = UUID.randomUUID();
     	 String newPassword = messageDigest(password);
-    	 String url = "jdbc:sqlite:Desktop/users.db";
     	 String sql = "INSERT INTO javaUniqueUser(UUID, username,"
     	 		+ " password,"
     	 		+ " email,"
     	 		+ " ssn) VALUES(?,?,?,?,?);";
-    	 try (var conn = DriverManager.getConnection(url);
+    	 try (var conn = DriverManager.getConnection(urlDirectory);
                  var pstmt = conn.prepareStatement(sql)) {
     		 
     		 pstmt.setString(1,id.toString());
@@ -90,16 +92,26 @@ public class SqliteTester {
     }
     public static boolean searchdatabase(String username, String password) {
     	 String newPassword = messageDigest(password);
-    	String url = "jdbc:sqlite:Desktop/users.db";
+    	
     	PreparedStatement p = null;
     	ResultSet rs = null;
-    	String sql = "SELECT username, password FROM javaUniqueUser username= ? AND password= ?;";
-    	 try (var conn = DriverManager.getConnection(url); 
+    	String sql = "SELECT UUID, username, password FROM javaUniqueUser WHERE username= ? AND password= ?";
+    	 try (var conn = DriverManager.getConnection(urlDirectory); 
     			 var pstmt = conn.prepareStatement(sql)) {
+    		 //System.out.println(newPassword);
     		 pstmt.setString(1,username);
     		 pstmt.setString(2,newPassword);
     		 ResultSet result = pstmt.executeQuery();
     		 if(result.next()) {
+    			 String id = result.getString("UUID");
+    			 
+    			 UUID OriginalId = UUID.fromString(id);
+    			 //System.out.println(id);
+    			 //System.out.println(OriginalId);
+    			 
+    			 user = new User(OriginalId, username);
+    			 
+    			 
     			 System.out.println("Login successful");
     			 return true;
     			 
@@ -129,7 +141,10 @@ public class SqliteTester {
         	String username = line.nextLine();
         	System.out.println("Please enter a Password");
         	String password = line.nextLine();
-        	searchdatabase(username, password);
+        	if(searchdatabase(username, password)) {
+        		userBank.BankMenu(user);
+        	}
+        	
     	} else if(input == 2) {
     		System.out.println("Please enter a username");
 	    	String username = line.nextLine();
