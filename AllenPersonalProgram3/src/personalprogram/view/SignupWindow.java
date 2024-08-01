@@ -51,12 +51,12 @@ public class SignupWindow  implements EventHandler<ActionEvent>{
 		pane.add(PasswordLbl, 0, 3);
 		pane.add(passwordField, 0, 4);
 		pane.add(EmailLbl, 0, 5);
-		pane.add(emailField, 0, 5);
-		pane.add(SSNLbl, 0, 6);
-		pane.add(ssnField, 0, 7);
+		pane.add(emailField, 0, 6);
+		pane.add(SSNLbl, 0, 7);
+		pane.add(ssnField, 0, 8);
 		
-		pane.add(confirmBtn, 0, 8);
-		pane.add(cancelBtn, 2, 8);
+		pane.add(confirmBtn, 0, 9);
+		pane.add(cancelBtn, 2, 9);
 		confirmBtn.setOnAction(this);
 		cancelBtn.setOnAction(this);
 
