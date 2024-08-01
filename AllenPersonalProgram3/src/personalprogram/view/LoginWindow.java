@@ -21,14 +21,11 @@ import personalprogram.model.SqliteTester;
 public class LoginWindow  implements EventHandler<ActionEvent>{
 	private Stage stage;
 	private SqliteTester sql;
-	private Text nameTxt = new Text("");
 	private TextField usernameField = new TextField();
 	private TextField passwordField = new TextField();
-	private Text priceTxt = new Text("");
-	private Text copiesTxt = new Text("");
-	private Text formatTxt = new Text("");
-	private Button confirmBtn = new Button("Confirm order");
-	private Button cancelBtn = new Button("Cancel Order");
+
+	private Button confirmBtn = new Button("Confirm");
+	private Button cancelBtn = new Button("Cancel");
 	public void show() {
 		// TODO Auto-generated method stub
 		stage.show();

@@ -15,7 +15,7 @@ import java.util.UUID;
 
 public class SqliteTester {
 
-	private static String urlDirectory = "Place file path here";
+	private static String urlDirectory = "jdbc:sqlite:Place Code for database here";
 	private static SqliteUsersBank userBank;
 	private static UUID id;
 	public static User user;

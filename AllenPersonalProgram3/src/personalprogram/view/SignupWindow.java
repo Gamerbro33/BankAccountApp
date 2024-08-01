@@ -21,14 +21,12 @@ import personalprogram.model.SqliteTester;
 public class SignupWindow  implements EventHandler<ActionEvent>{
 	private Stage stage;
 	private SqliteTester sql;
-	private Text nameTxt = new Text("");
 	private TextField usernameField = new TextField();
 	private TextField passwordField = new TextField();
-	private Text priceTxt = new Text("");
-	private Text copiesTxt = new Text("");
-	private Text formatTxt = new Text("");
-	private Button confirmBtn = new Button("Confirm order");
-	private Button cancelBtn = new Button("Cancel Order");
+	private TextField emailField = new TextField();
+	private TextField ssnField = new TextField();
+	private Button confirmBtn = new Button("Confirm");
+	private Button cancelBtn = new Button("Cancel");
 	public void show() {
 		// TODO Auto-generated method stub
 		stage.show();
@@ -44,16 +42,21 @@ public class SignupWindow  implements EventHandler<ActionEvent>{
 		stage.setTitle("Purchase Window");
 
 		Label UsernameLbl = new Label("Username:");
-
 		Label PasswordLbl = new Label("Password:");
+		Label EmailLbl = new Label("Email:");
+		Label SSNLbl = new Label("SSN:");
+		
 		pane.add(UsernameLbl, 0, 1);
 		pane.add(usernameField, 0, 2);
 		pane.add(PasswordLbl, 0, 3);
 		pane.add(passwordField, 0, 4);
-
+		pane.add(EmailLbl, 0, 5);
+		pane.add(emailField, 0, 5);
+		pane.add(SSNLbl, 0, 6);
+		pane.add(ssnField, 0, 7);
 		
-		pane.add(confirmBtn, 0, 5);
-		pane.add(cancelBtn, 2, 5);
+		pane.add(confirmBtn, 0, 8);
+		pane.add(cancelBtn, 2, 8);
 		confirmBtn.setOnAction(this);
 		cancelBtn.setOnAction(this);
 
@@ -64,13 +67,10 @@ public class SignupWindow  implements EventHandler<ActionEvent>{
 		// TODO Auto-generated method stub
 		String username = usernameField.getText();
 		String password = passwordField.getText();
+		String email = emailField.getText();
+		int ssn = Integer.parseInt(ssnField.getText());
 		if (confirmBtn == event.getSource()) {
-			if(sql.searchdatabase(username, password)) {
-				System.out.println("window with login should open");
-			} else {
-				System.out.println("run failed please try again");
-			}
-				
+			sql.addingData(username, password, email, ssn);
 			
 		} 
 		else {
