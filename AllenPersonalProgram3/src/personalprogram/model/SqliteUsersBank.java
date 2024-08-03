@@ -21,7 +21,7 @@ public class SqliteUsersBank {
 	private static ArrayList<Bank> bankList;
 	//public static User user;
 	
-	private static String urlDirectory = "jdbc:sqlite:Place Code for database here";
+	private static String urlDirectory = "jdbc:sqlite:Place sqlite db file path here";
 	  /**
      * Connect to a sample database
      */
@@ -67,10 +67,22 @@ public class SqliteUsersBank {
 		}
     	return info;
     }*/
-    
-    public static void addingData(User user, String title, double balance) {
+    public static void addingBalancesMenu(User user) {
+    	Scanner line = new Scanner(System.in);
+    	System.out.println("Enter the name/title of your balance");
+    	String title = line.nextLine();
     	
-    	 String sql = "INSERT INTO "+user.getUUID()+"(Title,"
+    	System.out.println("Please enter how much you would like to deposit in this balance");
+    	double balance = line.nextInt();
+    	line.nextLine();
+    	bank = new Bank(title, balance);
+		BankList.addBank(title, balance);
+    	
+    	addingBalance(user, title, balance);
+    }
+    public static void addingBalance(User user, String title, double balance) {
+    	
+    	 String sql = "INSERT INTO \""+user.getUUID()+"\"(Title,"
     	 		+ "Balance) VALUES(?,?);";
     	 try (var conn = DriverManager.getConnection(urlDirectory);
                  var pstmt = conn.prepareStatement(sql)) {
@@ -80,6 +92,34 @@ public class SqliteUsersBank {
     	 }catch (SQLException e) {
              System.err.println(e.getMessage());
          }
+    }
+    //Same as printingBankAccount Function Except it for javafx to make a ArrayList to be printable
+    public static ArrayList<Bank> BankAccount(User user) {
+    	BankList banks = BankList.getInstance();
+    	bankList = banks.getBankList();
+    	
+    	
+    	 String sql = "SELECT * FROM \""+user.getUUID()+"\";";
+    	 
+    	
+    	 try (var conn = DriverManager.getConnection(urlDirectory);
+                 var pstmt = conn.prepareStatement(sql)) {
+    		 ResultSet result = pstmt.executeQuery();
+    		 //System.out.println("Title\t\tBalance");
+    		
+    		 while(result.next()) {
+    			 String title = result.getString("Title");
+    			 double balance = result.getDouble("Balance");
+    			 //System.out.println(title+"\t\t"+balance);
+    			 bank = new Bank(title, balance);
+    			 BankList.addBank(title, balance);
+    		 }
+    		 return bankList;
+    		  
+    	 }catch (SQLException e) {
+             System.err.println(e.getMessage());
+         }
+    	 return null;
     }
     public static void printingBankAccount(User user2) {
     	BankList banks = BankList.getInstance();
@@ -232,6 +272,7 @@ public class SqliteUsersBank {
 			
 			switch(options) {
 				case 1:
+					addingBalancesMenu(user);
 					break;
 				case 2:
 					TransferBalances(user);
@@ -243,6 +284,7 @@ public class SqliteUsersBank {
 					Withdrawfunds(user);
 					break;
 				case 5:
+					loggedIn = false;
 					break;
 				default:
 					System.out.println("incorrect input please try again");

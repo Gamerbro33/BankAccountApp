@@ -2,6 +2,7 @@ package personalprogram.view;
 
 
 import java.util.Optional;
+import java.util.UUID;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -17,12 +18,17 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import personalprogram.model.SqliteTester;
+import personalprogram.model.SqliteUsersBank;
+import personalprogram.model.User;
 
 public class LoginWindow  implements EventHandler<ActionEvent>{
 	private Stage stage;
 	private SqliteTester sql;
 	private TextField usernameField = new TextField();
 	private TextField passwordField = new TextField();
+	private static SqliteUsersBank userBank;
+	public static UUID id;
+	public static User user;
 
 	private Button confirmBtn = new Button("Confirm");
 	private Button cancelBtn = new Button("Cancel");
@@ -32,8 +38,9 @@ public class LoginWindow  implements EventHandler<ActionEvent>{
 		
 	}
 
-	public LoginWindow()
+	public LoginWindow(User u)
 	{
+		user = u;
 		stage = new Stage();
 		GridPane pane = new GridPane();
 
@@ -62,8 +69,16 @@ public class LoginWindow  implements EventHandler<ActionEvent>{
 		String username = usernameField.getText();
 		String password = passwordField.getText();
 		if (confirmBtn == event.getSource()) {
-			if(sql.searchdatabase(username, password)) {
+			if(sql.searchDatabase(username, password)) {
+				user = sql.grabDatabase(user, username, password);
+        		
+				//userBank.BankMenu(user);
+				//System.out.println("Testing userclass"+user.getUsername());
+				
 				System.out.println("window with login should open");
+				UserMainMenuWindow userWindow = new UserMainMenuWindow(user);
+				userWindow.show();
+				stage.close();
 			} else {
 				System.out.println("run failed please try again");
 			}

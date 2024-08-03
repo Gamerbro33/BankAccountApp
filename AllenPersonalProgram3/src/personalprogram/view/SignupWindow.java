@@ -17,10 +17,12 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import personalprogram.model.SqliteTester;
+import personalprogram.model.SqliteUsersBank;
 
 public class SignupWindow  implements EventHandler<ActionEvent>{
 	private Stage stage;
 	private SqliteTester sql;
+	private SqliteUsersBank userBank;
 	private TextField usernameField = new TextField();
 	private TextField passwordField = new TextField();
 	private TextField emailField = new TextField();

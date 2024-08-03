@@ -13,16 +13,16 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import personalprogram.model.User;
 
 
 public class StartupWindow implements EventHandler<ActionEvent> {
 	
 	private Stage stage;
-
+	private User user;
 	private Button loginBtn = new Button("Login");
 	private Button signUpBtn = new Button("Sign Up");
-	private ListView<String> storeCB = new ListView<String>();
-	
+
 	public StartupWindow(Stage stage) {
 		// TODO Auto-generated constructor stub
 		this.stage = stage;
@@ -59,7 +59,7 @@ public class StartupWindow implements EventHandler<ActionEvent> {
 		// TODO Auto-generated method stub
 		if(loginBtn == event.getSource())
 		{
-			LoginWindow login = new LoginWindow();
+			LoginWindow login = new LoginWindow(user);
 			login.show();
 		
 		}
