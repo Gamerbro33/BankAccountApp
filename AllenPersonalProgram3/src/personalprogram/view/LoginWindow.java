@@ -71,6 +71,7 @@ public class LoginWindow  implements EventHandler<ActionEvent>{
 		if (confirmBtn == event.getSource()) {
 			if(sql.searchDatabase(username, password)) {
 				user = sql.grabDatabase(user, username, password);
+				userBank.connectUsersBank(user);
         		
 				//userBank.BankMenu(user);
 				//System.out.println("Testing userclass"+user.getUsername());

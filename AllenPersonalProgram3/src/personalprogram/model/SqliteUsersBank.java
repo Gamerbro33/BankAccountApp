@@ -21,7 +21,7 @@ public class SqliteUsersBank {
 	private static ArrayList<Bank> bankList;
 	//public static User user;
 	
-	private static String urlDirectory = "jdbc:sqlite:Place sqlite db file path here";
+	private static String urlDirectory = "jdbc:sqlite:Place sqlite file path here";
 	  /**
      * Connect to a sample database
      */
@@ -155,6 +155,20 @@ public class SqliteUsersBank {
                 var pstmt = conn.prepareStatement(sql)) {
     		pstmt.setDouble(1,bank.getBalance());
     		pstmt.setString(2, bank.getTitle());
+    		pstmt.executeUpdate();
+    	} catch (SQLException e) {
+    		System.err.println(e.getMessage());
+    	}
+    }
+    public static void FronEndupdatingBalanceData(User user, String title, double balance) {
+    	var sql = "UPDATE \""+user.getUUID()+"\""
+    			+ " SET Balance = ? "
+    			+ "WHERE Title = ?;";
+    	try(var conn = DriverManager.getConnection(urlDirectory);
+                var pstmt = conn.prepareStatement(sql)) {
+    		//System.out.println(title+"\n"+balance);
+    		pstmt.setDouble(1,balance);
+    		pstmt.setString(2,title);
     		pstmt.executeUpdate();
     	} catch (SQLException e) {
     		System.err.println(e.getMessage());

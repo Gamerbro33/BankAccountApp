@@ -4,12 +4,15 @@ package personalprogram.view;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -25,10 +28,9 @@ public class UserMainMenuWindow  implements EventHandler<ActionEvent>{
 	private Stage stage;
 	private SqliteTester sql;
 	private SqliteUsersBank userSql;
-	public static Bank bank;
+	public static Bank b;
+	public static User u;
 	private static ArrayList<Bank> bankList;
-	private TextField usernameField = new TextField();
-	private TextField passwordField = new TextField();
 
 	private Button DepositBtn = new Button("Deposit");
 	private Button WithdrawBtn = new Button("Withdraw");
@@ -43,15 +45,16 @@ public class UserMainMenuWindow  implements EventHandler<ActionEvent>{
 
 	public UserMainMenuWindow(User user)
 	{
+		u = user;
 		//userSql.connectUsersBank(user);
 		//userSql.BankAccount(user, bank, bankList);
 		stage = new Stage();
 		GridPane pane = new GridPane();
-
+		
 		Scene scene = new Scene(pane, 450, 300);
 		stage.setTitle("Welcome"+user.getUsername());
-		userSql.connectUsersBank(user);
-		bankList = userSql.BankAccount(user);
+		userSql.connectUsersBank(u);
+		bankList = userSql.BankAccount(u);
 		
 
 		Label TitleLbl = new Label("Title:");
@@ -85,12 +88,34 @@ public class UserMainMenuWindow  implements EventHandler<ActionEvent>{
 	public void handle(ActionEvent event) {
 		// TODO Auto-generated method stub
 		if (DepositBtn == event.getSource()) {
-				
+			DepositWindow deposit = new DepositWindow(u, bankList);
+			bankList.clear();
+			deposit.show();
+			stage.close();
+		} else if (WithdrawBtn == event.getSource()) {
+			WithdrawWindow withdraw = new WithdrawWindow(u, bankList);
+			bankList.clear();
+			withdraw.show();
+			stage.close();
+		} else if(TransferBtn == event.getSource()) {
+			TransferWindow tranfer = new TransferWindow(u, bankList);
+			bankList.clear();
+			tranfer.show();
+			stage.close();
+		} else if(addBtn == event.getSource()) {
+			AddWindow add = new AddWindow(u, bankList);
+			bankList.clear();
+			add.show();
+			stage.close();
+		}  else if(logoutBtn == event.getSource()) {
 			
-		} 
-		else {
+			bankList.clear();
+			stage.close();
+		} else {
 			stage.close();
 		}
 	}
+	
+
 
 }

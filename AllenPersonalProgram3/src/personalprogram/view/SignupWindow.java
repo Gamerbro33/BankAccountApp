@@ -18,11 +18,13 @@ import javafx.stage.Stage;
 
 import personalprogram.model.SqliteTester;
 import personalprogram.model.SqliteUsersBank;
+import personalprogram.model.User;
 
 public class SignupWindow  implements EventHandler<ActionEvent>{
 	private Stage stage;
 	private SqliteTester sql;
 	private SqliteUsersBank userBank;
+	public static User user;
 	private TextField usernameField = new TextField();
 	private TextField passwordField = new TextField();
 	private TextField emailField = new TextField();
@@ -73,7 +75,7 @@ public class SignupWindow  implements EventHandler<ActionEvent>{
 		int ssn = Integer.parseInt(ssnField.getText());
 		if (confirmBtn == event.getSource()) {
 			sql.addingData(username, password, email, ssn);
-			
+			userBank.connectUsersBank(user);
 		} 
 		else {
 			stage.close();
