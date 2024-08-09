@@ -6,7 +6,8 @@ public class Bank {
 	
 	public Bank(String title, double balance) {
 		this.title = title;
-		this.balance = balance;
+		String formatBalance = String.format("%.2f",balance);
+		this.balance = Double.parseDouble(formatBalance);
 	}
 	
 	public String getTitle() {
