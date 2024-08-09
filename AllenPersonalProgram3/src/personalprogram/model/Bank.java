@@ -26,9 +26,6 @@ public class Bank {
 	}
 	
 	
-	public void transferBalances(double balance1, double balance2) {
-		
-	}
 
 
 }
