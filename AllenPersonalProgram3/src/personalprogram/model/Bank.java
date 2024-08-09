@@ -2,11 +2,11 @@ package personalprogram.model;
 
 public class Bank {
 	private String title;
-	private double Balance;
+	private double balance;
 	
-	public Bank(String title, double Balance) {
+	public Bank(String title, double balance) {
 		this.title = title;
-		this.Balance = Balance;
+		this.balance = balance;
 	}
 	
 	public String getTitle() {
@@ -14,14 +14,14 @@ public class Bank {
 	}
 	
 	public double getBalance() {
-		return Balance;
+		return balance;
 	}
 	
 	public void addDeposit(double amount) {
-		Balance += amount;
+		balance += amount;
 	}
-	public void Withdraw(double amount) {
-		Balance -= amount;
+	public void withdraw(double amount) {
+		balance -= amount;
 	}
 	
 	

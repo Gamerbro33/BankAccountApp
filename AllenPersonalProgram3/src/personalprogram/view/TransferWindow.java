@@ -71,7 +71,7 @@ public class TransferWindow  implements EventHandler<ActionEvent>{
 		Scene scene = new Scene(pane, 450, 300);
 		stage.setTitle("Withdraw Window");
 		userSql.connectUsersBank(u);
-		bankList = userSql.BankAccount(u);
+		bankList = userSql.bankAccount(u);
 		
 		pane.add(BalanceLbl1,0,1);
 		pane.add(comboBox1,0, 2);
@@ -96,7 +96,7 @@ public class TransferWindow  implements EventHandler<ActionEvent>{
 		//System.out.println(comboBox.getValue());
 		double Withdraw =  Double.parseDouble(amountField.getText());
 		if(confirm == event.getSource()) {
-			UpdateAndsplitString(comboBox1.getValue().toString(), comboBox2.getValue().toString(), Withdraw);
+			updateAndSplitString(comboBox1.getValue().toString(), comboBox2.getValue().toString(), Withdraw);
 			UserMainMenuWindow mainMenu = new UserMainMenuWindow(user);
 			mainMenu.show();
 			stage.close();
@@ -109,7 +109,7 @@ public class TransferWindow  implements EventHandler<ActionEvent>{
 		
 	}
 
-	private void UpdateAndsplitString(String option1, String option2, double transfer) {
+	private void updateAndSplitString(String option1, String option2, double transfer) {
 		// TODO Auto-generated method stub
 		String[] arrOfStr1 = option1.split(":", 2);
 		String[] arrOfStr2 = option2.split(":", 2);
@@ -117,8 +117,8 @@ public class TransferWindow  implements EventHandler<ActionEvent>{
 		double balance1 = Double.parseDouble(arrOfStr1[1])-transfer;
 		String title2 = arrOfStr2[0];
 		double balance2 = Double.parseDouble(arrOfStr2[1])+transfer;
-		userSql.FronEndupdatingBalanceData(user, title1, balance1);
-		userSql.FronEndupdatingBalanceData(user, title2, balance2);
+		userSql.frontEndUpdatingBalanceData(user, title1, balance1);
+		userSql.frontEndUpdatingBalanceData(user, title2, balance2);
 		//System.out.println(title+"\n"+balance);
 	}
 

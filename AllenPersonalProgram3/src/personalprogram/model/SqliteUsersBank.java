@@ -94,7 +94,7 @@ public class SqliteUsersBank {
          }
     }
     //Same as printingBankAccount Function Except it for javafx to make a ArrayList to be printable
-    public static ArrayList<Bank> BankAccount(User user) {
+    public static ArrayList<Bank> bankAccount(User user) {
     	BankList banks = BankList.getInstance();
     	bankList = banks.getBankList();
     	
@@ -160,7 +160,7 @@ public class SqliteUsersBank {
     		System.err.println(e.getMessage());
     	}
     }
-    public static void FronEndupdatingBalanceData(User user, String title, double balance) {
+    public static void frontEndUpdatingBalanceData(User user, String title, double balance) {
     	var sql = "UPDATE \""+user.getUUID()+"\""
     			+ " SET Balance = ? "
     			+ "WHERE Title = ?;";
@@ -243,7 +243,7 @@ public class SqliteUsersBank {
     	
     	Bank selectedBalance = bankList.get(option);
     	System.out.println("Before"+selectedBalance.getBalance());
-    	selectedBalance.Withdraw(withdraw);
+    	selectedBalance.withdraw(withdraw);
     	System.out.println("After"+selectedBalance.getBalance());
     	updatingBalanceData(user, selectedBalance);
 
@@ -262,7 +262,7 @@ public class SqliteUsersBank {
     	Bank selectedBalance1 = bankList.get(option1);
     	Bank selectedBalance2 = bankList.get(option2);
     	System.out.println("Before"+selectedBalance1.getBalance());
-    	selectedBalance1.Withdraw(Transfered);
+    	selectedBalance1.withdraw(Transfered);
     	selectedBalance2.addDeposit(Transfered);
     	System.out.println("After"+selectedBalance1.getBalance());
     	updatingBalanceData(user, selectedBalance1);

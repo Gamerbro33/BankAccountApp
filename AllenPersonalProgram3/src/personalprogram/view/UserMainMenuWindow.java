@@ -54,7 +54,7 @@ public class UserMainMenuWindow  implements EventHandler<ActionEvent>{
 		Scene scene = new Scene(pane, 450, 300);
 		stage.setTitle("Welcome"+user.getUsername());
 		userSql.connectUsersBank(u);
-		bankList = userSql.BankAccount(u);
+		bankList = userSql.bankAccount(u);
 		
 
 		Label TitleLbl = new Label("Title:");

@@ -61,7 +61,7 @@ public class WithdrawWindow  implements EventHandler<ActionEvent>{
 		Scene scene = new Scene(pane, 450, 300);
 		stage.setTitle("Withdraw Window");
 		userSql.connectUsersBank(u);
-		bankList = userSql.BankAccount(u);
+		bankList = userSql.bankAccount(u);
 		
 		pane.add(BalanceLbl,0,1);
 		pane.add(comboBox,0, 2);
@@ -81,9 +81,9 @@ public class WithdrawWindow  implements EventHandler<ActionEvent>{
 	public void handle(ActionEvent event) {
 		// TODO Auto-generated method stub
 		//System.out.println(comboBox.getValue());
-		double Withdraw =  Double.parseDouble(amountField.getText());
+		double withdraw =  Double.parseDouble(amountField.getText());
 		if(confirm == event.getSource()) {
-			UpdateAndsplitString(comboBox.getValue().toString(), Withdraw);
+			updateAndSplitString(comboBox.getValue().toString(), withdraw);
 			UserMainMenuWindow mainMenu = new UserMainMenuWindow(user);
 			mainMenu.show();
 			stage.close();
@@ -96,12 +96,12 @@ public class WithdrawWindow  implements EventHandler<ActionEvent>{
 		
 	}
 
-	private void UpdateAndsplitString(String object, double Withdraw) {
+	private void updateAndSplitString(String object, double withdraw) {
 		// TODO Auto-generated method stub
 		String[] arrOfStr = object.split(":", 2);
 		String title = arrOfStr[0];
-		double balance = Double.parseDouble(arrOfStr[1])-Withdraw;
-		userSql.FronEndupdatingBalanceData(user, title, balance);
+		double balance = Double.parseDouble(arrOfStr[1])-withdraw;
+		userSql.frontEndUpdatingBalanceData(user, title, balance);
 		//System.out.println(title+"\n"+balance);
 	}
 

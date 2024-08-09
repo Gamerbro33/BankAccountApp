@@ -66,8 +66,8 @@ public class StartupWindow implements EventHandler<ActionEvent> {
 		else if(signUpBtn == event.getSource())
 		{
 			//store.displayCart();
-			SignupWindow signup = new SignupWindow();
-			signup.show();
+			SignupWindow signUp = new SignupWindow();
+			signUp.show();
 			
 		}
 		else

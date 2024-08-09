@@ -61,7 +61,7 @@ public class DepositWindow  implements EventHandler<ActionEvent>{
 		Scene scene = new Scene(pane, 450, 300);
 		stage.setTitle("Deposit Window");
 		userSql.connectUsersBank(u);
-		bankList = userSql.BankAccount(u);
+		bankList = userSql.bankAccount(u);
 		
 		pane.add(BalanceLbl,0,1);
 		pane.add(comboBox,0, 2);
@@ -83,7 +83,7 @@ public class DepositWindow  implements EventHandler<ActionEvent>{
 		//System.out.println(comboBox.getValue());
 		double deposit =  Double.parseDouble(amountField.getText());
 		if(confirm == event.getSource()) {
-			UpdateAndsplitString(comboBox.getValue().toString(), deposit);
+			updateAndSplitString(comboBox.getValue().toString(), deposit);
 			UserMainMenuWindow mainMenu = new UserMainMenuWindow(user);
 			mainMenu.show();
 			stage.close();
@@ -96,12 +96,12 @@ public class DepositWindow  implements EventHandler<ActionEvent>{
 		
 	}
 
-	private void UpdateAndsplitString(String object, double deposit) {
+	private void updateAndSplitString(String object, double deposit) {
 		// TODO Auto-generated method stub
 		String[] arrOfStr = object.split(":", 2);
 		String title = arrOfStr[0];
 		double balance = Double.parseDouble(arrOfStr[1])+deposit;
-		userSql.FronEndupdatingBalanceData(user, title, balance);
+		userSql.frontEndUpdatingBalanceData(user, title, balance);
 		//System.out.println(title+"\n"+balance);
 	}
 
